@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Frame</title>
+  <style>
+  html, body{margin: 0;}
+  .iframe-box {
+    width: 100%; height: 40vh;
+    position: relative;
+  }
+  .iframe-box::after {
+    content: 'iframe (github.io)';
+    position: absolute; bottom: 0; right: 0;
+    padding: 8px 16px;
+    background-color: darkblue;
+    color: lightcyan;
+    font-size: 1.5rem;
+  }
+  iframe {
+    width: 100%; height: 100%;
+    box-sizing: border-box;
+    border: 2px solid darkblue;
+  }
+  </style>
+</head>
+<body>
+  <div class="iframe-box">
+    <iframe src="https://flandredaisuki.github.io/reproduce-safari-iframe-storage/" frameborder="0"></iframe>
+  </div>
+  <fieldset>
+    <legend>Save to localStorage</legend>
+    <label for="storage-key">Key</label>
+    <input type="text" id="storage-key">
+    <label for="storage-value">Value</label>
+    <input type="text" id="storage-value">
+  </fieldset>
+  <fieldset>
+    <button id="save-btn">Save</button>
+    <button id="clear-btn">Clear</button>
+  </fieldset>
+  <pre id="storage-results"></pre>
+
+  <script>
+  const $ = document.querySelector.bind(document);
+  const render = () => {
+    $('#storage-results').textContent = JSON.stringify(localStorage, '', 2);
+  }
+  $('#save-btn').onclick = () => {
+    localStorage.setItem($('#storage-key').value, $('#storage-value').value);
+    render();
+  }
+  $('#clear-btn').onclick = () => {
+    localStorage.clear();
+    render();
+  }
+  window.onload = render;
+  </script>
+</body>
+</html>
