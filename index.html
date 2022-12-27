@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embedded</title>
+  <style>html, body{margin: 0;}</style>
+</head>
+<body>
+  <fieldset>
+    <legend>Save to localStorage</legend>
+    <label for="storage-key">Key</label>
+    <input type="text" id="storage-key">
+    <label for="storage-value">Value</label>
+    <input type="text" id="storage-value">
+  </fieldset>
+  <fieldset>
+    <button id="save-btn">Save</button>
+    <button id="clear-btn">Clear</button>
+  </fieldset>
+  <pre id="storage-results"></pre>
+
+  <script>
+  const $ = document.querySelector.bind(document);
+  const render = () => {
+    $('#storage-results').textContent = JSON.stringify(localStorage, '', 2);
+  }
+  $('#save-btn').onclick = () => {
+    localStorage.setItem($('#storage-key').value, $('#storage-value').value);
+    render();
+  }
+  $('#clear-btn').onclick = () => {
+    localStorage.clear();
+    render();
+  }
+  window.onload = render;
+  </script>
+</body>
+</html>
